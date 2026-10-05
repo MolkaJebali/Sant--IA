@@ -281,7 +281,7 @@ docker-compose up --build
 <div align="center">
 
 **Molka Jebali**  
-*Étudiante en M1 Big Data · Ingénierie des Données & Intelligence Artificielle*  
+
 [![GitHub](https://img.shields.io/badge/GitHub-MolkaJebali-181717?style=flat-square&logo=github)](https://github.com/MolkaJebali)
 
 </div>
