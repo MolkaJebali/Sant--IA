@@ -1,293 +1,235 @@
-<div align="center">
+# 🩺 AI Health Companion
 
-# 🩺 Santé-IA — Compagnon Intelligent de Santé & Analyse Médicale
+**An empathetic, multilingual health assistant that understands emotions, detects emergencies and answers from verified medical sources.**
 
-<p align="center">
-  <strong>Assistant médical conversationnel multimodal, analyseur de documents cliniques et suivi émotionnel en temps réel.</strong>
-</p>
+`NLP` · `RAG` · `LLM (Llama 3.3 70B)` · `Emotion analysis` · `FR / EN / AR (Derja)` · `Voice` · `Vision`
 
-<p align="center">
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
-  <img src="https://img.shields.io/badge/TailwindCSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="TailwindCSS" />
-  <img src="https://img.shields.io/badge/Groq-Llama%204%20%26%20Whisper-F55036?style=for-the-badge&logo=groq&logoColor=white" alt="Groq" />
-  <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
-  <img src="https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License" />
-</p>
-
-</div>
+> Master's project (M1 Big Data, UGC & Marketing course, IHEC Carthage, 2025–2026), built by a team of two students.
+> ⚠️ **Educational project, not a medical device.** The assistant never gives a definitive diagnosis.
 
 ---
 
-## 📌 Présentation du Projet
-
-**Santé-IA** est une plateforme e-santé complète conçue pour démocratiser l'accès à l'information médicale, offrir un soutien empathique aux patients et simplifier la compréhension des documents de santé (ordonnances, bilans sanguins, comptes rendus radiologiques).
-
-Développée dans le cadre académique du **Master 1 Big Data**, la solution combine :
-- Un pipeline **RAG (Retrieval-Augmented Generation)** alimenté par une base de connaissances médicales vérifiées.
-- Un système de **détection d'émotions et de détresse psychologique** en temps réel (Français, Anglais, Arabe / Derja).
-- Une **analyse multimodale de documents cliniques** (Vision par ordinateur & OCR PDF via PyMuPDF et LLM Vision).
-- Un protocole strict de **détection d'urgences vitales** avec redirection immédiate vers les services de secours (SAMU 190, Protection Civile 198 en Tunisie).
-- Une interaction vocale bidirectionnelle (**STT Whisper** + **TTS vocal synthétisé**).
-- Un **tableau de bord analytique** assurant le suivi longitudinal de l'état émotionnel et du profil médical du patient.
-
----
-
-## 🚀 Fonctionnalités Clés
-
-### 1. 🤖 Assistant Médical & RAG Hybride
-- Réponse contextualisée basée sur le profil patient (âge, groupe sanguin, allergies, antécédents chroniques).
-- Base de connaissances médicales indexée (`health_dataset.json`) pour limiter les hallucinations et garantir des conseils rigoureux.
-- Personnalisation empathique du ton en fonction de l'interlocuteur.
-
-### 2. 🎭 Analyse Émotionnelle Multilingue & Avatar Dynamique
-- Classification en 5 états émotionnels : **Stress**, **Tristesse**, **Joie**, **Neutre**, **Confusion**.
-- Support trilingue natif incluant le dialecte tunisien (Derja) et l'arabe standard.
-- L'avatar de l'interface adapte son expression visuelle en temps réel selon l'émotion dominante détectée.
-
-### 3. 🚨 Détection Automatique d'Urgences Vitales
-- Analyse lexicale immédiate identifiant les signaux critiques (douleur thoracique, suspicion d'infarctus, hémorragie, détresse respiratoire, pensées suicidaires).
-- Interruption préventive du chat avec affichage prioritaire d'alerte et appel direct aux numéros d'urgence :
-  - **SAMU :** `190`
-  - **Protection Civile :** `198`
-  - **Police Secours :** `197`
-
-### 4. 📄 Vision & Analyse Intelligente d'Ordonnances / Bilans (PDF & Images)
-- Import de photos d'ordonnances ou de documents PDF multipages.
-- Extraction de texte et rendu haute résolution via **PyMuPDF (`fitz`)**.
-- Analyse par modèle de vision multimodal (**Meta LLaMA Vision**) pour vulgariser la posologie, expliquer les indicateurs anormaux et rassurer le patient.
-
-### 5. 🎙️ Consultation Vocale (Speech-to-Text & Text-to-Speech)
-- Enregistrement audio intégré dans le navigateur via l'API Web MediaRecorder.
-- Transcription ultra-rapide par **Groq Whisper Large v3**.
-- Synthèse vocale fluide (**gTTS**) renvoyée en Base64 pour écoute directe de la réponse.
-
-### 6. 📈 Dashboard de Santé & Suivi Émotionnel
-- Visualisation interactive avec **Recharts** (camemberts de distribution des émotions, compteurs d'échanges).
-- Synthèse de la fiche santé personnelle (groupe sanguin, allergies, affections chroniques).
-- Gestion complète de l'historique des discussions (création, renommage, suppression).
-
-### 7. 🌍 Internationalisation & Accessibilité
-- Support complet du **Français**, de l'**Anglais** et de l'**Arabe** (avec direction d'écriture **RTL** native).
-- Mode **Invité** pour une consultation immédiate sans inscription et mode **Authentifié (JWT)** pour le suivi longitudinal.
+## 📌 Table of contents
+1. [Why this project?](#-why-this-project)
+2. [Market & user analysis](#-market--user-analysis)
+3. [The knowledge base](#-the-knowledge-base)
+4. [How it works](#-how-it-works)
+5. [AI & ML components](#-ai--ml-components)
+6. [Features](#-features)
+7. [Tech stack](#-tech-stack)
+8. [Limitations & roadmap](#-limitations--roadmap)
+9. [Getting started](#-getting-started)
+10. [Project structure](#-project-structure)
+11. [Ethics & privacy](#-ethics--privacy)
 
 ---
 
-## 🏗️ Architecture du Système
+## 💡 Why this project?
+
+People often turn to the internet before seeing a doctor, and the result is frequently **anxiety** (cyberchondria) rather than clarity. Existing chatbots are either clinical and robotic, purely transactional, or not built for health at all.
+
+We built a companion that:
+- **understands the patient's emotional state** and adapts its tone (soothing, directive or explanatory);
+- **detects emergencies** and immediately shows emergency numbers (SAMU 190 in Tunisia);
+- **answers from curated medical documents** (RAG) instead of improvising, to limit hallucinations;
+- **speaks the patient's language**: French, English, Arabic and Tunisian Derja.
+
+---
+
+## 📊 Market & user analysis
+
+Before writing any code, we ran a **data-driven analysis** (Python notebook) of the market and of what users actually say about existing AI health companions. It shaped every design decision below.
+
+### Who is it for?
+<p align="center"><img src="assets/00-personas.png" alt="Three target personas" width="85%"></p>
+
+Three personas (a worried parent, a retired person who struggles with medical jargon, a student looking for quick answers) led to **three adaptive tones**: reassuring, pedagogical, and practical.
+
+### What the data says
+
+<table>
+<tr>
+<td width="50%"><img src="assets/01-market-growth.png" alt="Global AI health market growth"><br><sub><b>A growing market:</b> estimated $208B by 2030 (+37% CAGR, study estimates).</sub></td>
+<td width="50%"><img src="assets/02-sentiment-analysis.png" alt="Sentiment and rating distribution"><br><sub><b>Sentiment analysis</b> of 37 real user reviews: 57% positive, 21 reviews rated 4–5★.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="assets/03-word-clouds.png" alt="Word clouds of positive and negative reviews"><br><sub><b>Word clouds:</b> users love simple, empathetic language; they miss emergency handling and warmth.</sub></td>
+<td width="50%"><img src="assets/04-market-gaps.png" alt="Main gaps of current AI health companions"><br><sub><b>Gap analysis:</b> share of negative reviews mentioning each issue.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="assets/05-competitive-radar.png" alt="Competitive positioning radar"><br><sub><b>Competitive benchmark</b> (qualitative scoring) against Ada Health, ChatGPT and a booking bot.</sub></td>
+<td width="50%"><img src="assets/06-nlp-pipeline.png" alt="NLP pipeline with emotion detection"><br><sub><b>NLP pipeline:</b> emotion detection drives automatic tone adaptation.</sub></td>
+</tr>
+</table>
+
+*Charts are taken from the project presentation (in French).*
+
+### Key findings → design decisions
+
+| Finding from the analysis | Design decision |
+|---|---|
+| **Lack of empathy** is the #1 complaint (28% of negative reviews) | Emotion detection (joy, stress, sadness, confusion) injected into every prompt |
+| **Generic answers** (22%) and **no tone adaptation** (19%) | Dynamic prompt with user profile + emotional state + retrieved facts |
+| **No urgency detection** (16%) | Priority emergency scan that bypasses the LLM and shows emergency numbers |
+| **Language too clinical** (14%) | Pedagogical tone that simplifies medical jargon |
+| **Limited context memory** (11%) | Conversation history stored per user and reloaded on reconnection |
+
+---
+
+## 🗃️ The knowledge base
+
+The quality of a RAG system depends on its documents, so we built a **hybrid "golden dataset" of 130 curated entities** in JSON.
+
+- **Factual articles** from authoritative sources: WHO, Mayo Clinic, Vidal, Institut Pasteur de Tunis, Tunisian Ministry of Public Health, ONFP and emergency protocols of Tunisian university hospitals.
+- **Simulated user-generated content** (patient questions and testimonials) to test how the system handles imprecise, emotional language.
+- **Local and multilingual**: French, English, classical Arabic and **Tunisian Derja**, including local conditions (leishmaniasis, thalassemia) and national health infrastructure.
+- **Structured metadata**: ID, source (traceability), and semantic tags (e.g. `#Diabetes`, `#Emergency`, `#Pediatrics`) used by the retrieval step.
+
+All user-generated content is **synthetic**: no real patient data was used.
+
+---
+
+## ⚙️ How it works
 
 ```mermaid
-flowchart TD
-    subgraph Client ["Client Frontend (React 19 + Tailwind v4)"]
-        UI[Interface Moderne & Glassmorphism]
-        STT_Front[Web Audio Recorder]
-        Doc_Front[Uploader PDF / Images]
-        Dash[Dashboard Recharts]
-    end
-
-    subgraph Gateway ["Serveur Backend (FastAPI Python)"]
-        API[FastAPI REST API & Router]
-        Auth[Sécurité JWT & Bcrypt]
-        Emergency[Détecteur d'Urgence SAMU 190]
-        EmotionEngine[Moteur NLP d'Émotions & NER]
-    end
-
-    subgraph AI_Core ["Intelligence Artificielle & Modèles"]
-        RAG[RAG Pipeline & health_dataset.json]
-        GroqLLM[Groq Cloud: LLaMA 4 / LLaMA 3]
-        GroqWhisper[Groq Whisper-Large-v3 STT]
-        VisionDoc[PyMuPDF + Multimodal Vision]
-        TTS[gTTS Speech Synthesis]
-    end
-
-    subgraph Storage ["Persistance des Données"]
-        MySQL[(Base de Données MySQL / SQLAlchemy)]
-    end
-
-    UI -->|Requêtes HTTP / JWT| API
-    STT_Front -->|Audio Blob| API
-    Doc_Front -->|Multipart Upload| API
-    
-    API --> Auth
-    API --> Emergency
-    API --> EmotionEngine
-    API --> RAG
-    API --> VisionDoc
-    API --> GroqLLM
-    API --> GroqWhisper
-    API --> TTS
-    
-    API <-->|ORM SQLAlchemy| MySQL
-    Dash <-->|/api/stats & /api/profile| API
+flowchart LR
+    A[User message<br/>text, voice or document] --> B[Pre-processing<br/>FR / EN / AR-Derja]
+    B --> C{Urgency<br/>detected?}
+    C -- yes --> D[Emergency numbers<br/>SAMU 190]
+    C -- no --> E[Emotion scoring<br/>and entity extraction]
+    E --> F[RAG retrieval<br/>top 3 documents]
+    F --> G[Dynamic meta-prompt]
+    G --> H[Llama 3.3 70B<br/>via Groq]
+    H --> I[Answer<br/>text and optional voice]
+    H --> J[(MySQL<br/>history and emotion)]
+    J --> K[Analytics dashboard]
 ```
 
----
-
-## 💻 Technologies Utilisées
-
-| Domaine | Technologies |
-| :--- | :--- |
-| **Frontend** | React 19, Vite, Tailwind CSS v4, Recharts, Lucide Icons |
-| **Backend** | Python 3.10, FastAPI, Uvicorn, Pydantic, SQLAlchemy, PyMySQL |
-| **Sécurité** | JWT (JSON Web Tokens), Passlib (Bcrypt), OAuth2 Bearer |
-| **Intelligence Artificielle** | Groq Cloud API, LLaMA Models, Whisper Large-v3, LangChain (RAG) |
-| **Traitement du Document & Audio** | PyMuPDF (fitz), gTTS (Google Text-to-Speech), SpeechRecognition |
-| **Base de Données** | MySQL 8.0 / MariaDB (compatible XAMPP et Docker) |
-| **DevOps & Conteneurisation** | Docker, Docker Compose |
+1. **Pre-processing**: cleaning, lowercasing, punctuation removal, handling of French, Arabic and Derja.
+2. **Urgency check**: a priority scan for vital-distress terms (chest pain, heart attack, bleeding...). If triggered, the system skips everything else and shows emergency numbers.
+3. **Emotion analysis**: weighted keyword scoring into 4 categories (joy, stress, sadness, confusion), with a neutral fallback and a tie-break in favor of the most critical emotion (stress).
+4. **Entity extraction**: symptoms, organs and medications mentioned, used to personalize the answer.
+5. **Retrieval (RAG)**: stop-word filtering, keyword-overlap scoring against article content and tags (tags weigh more), top 3 documents kept.
+6. **Prompt construction**: system instructions (empathetic companion, never a definitive diagnosis), emotional state, retrieved facts, user profile, and the language to answer in.
+7. **Generation**: Llama 3.3 70B through the Groq API.
+8. **Persistence**: every message is stored with its detected emotion, so the dashboard does not need to recompute it.
 
 ---
 
-## 📁 Structure du Répertoire
+## 🧠 AI & ML components
+
+| Component | Technique | Purpose |
+|---|---|---|
+| Market & review analysis | Python notebook: sentiment analysis, rating distribution, word clouds, gap analysis, benchmark | Ground the product in real user needs |
+| Emotion detection | Weighted keyword scoring (multilingual dictionaries, including Derja phonetic expressions) | Adapt the tone; drive the avatar's expression |
+| Urgency detection | Priority keyword scan, bypasses the LLM | Safety first |
+| Entity extraction | Dictionary-based NER (symptoms, organs, medications) | Personalize answers |
+| Retrieval (RAG) | Keyword-overlap scoring with tag weighting, top-K = 3 | Ground answers in verified documents |
+| Generation | Llama 3.3 70B (Groq) with dynamic prompt engineering | Natural, multilingual, empathetic answers |
+| Document understanding | PDF to image (PyMuPDF), then vision LLM (Llama 3.2 Vision, then Llama 4 Scout) | Explain prescriptions |
+| Speech | Whisper (speech-to-text), gTTS (text-to-speech) | Voice interaction |
+| Analytics | Emotion and topic trends over time | Preventive follow-up |
+
+> **Design choice:** Derja is poorly supported by standard NLP libraries such as spaCy, so we built custom multilingual dictionaries rather than relying on a pretrained model.
+
+---
+
+## ✨ Features
+
+- 🗣️ **Empathetic conversation** with tone adapted to the detected emotion
+- 🚨 **Emergency detection** with immediate emergency numbers
+- 📚 **Answers grounded in curated medical sources**
+- 🌍 **Multilingual**: interface, understanding and answers in French, English and Arabic (Derja included)
+- 🎙️ **Voice**: speak to the assistant and hear the answer
+- 📄 **Prescription reading**: upload a document and get a plain-language explanation
+- 🧠 **Memory**: conversation history and user profile
+- 🔐 **Secure accounts** with JWT authentication
+- 📈 **Dashboard**: evolution of emotional state and health topics
+
+---
+
+## 🛠️ Tech stack
+
+| Layer | Technologies |
+|---|---|
+| **Language models** | Llama 3.3 70B, Llama 3.2 Vision / Llama 4 Scout (via Groq), Whisper, gTTS |
+| **Backend** | Python, REST API, SQLAlchemy, PyMuPDF |
+| **Database** | MySQL |
+| **Auth** | JWT |
+| **Frontend** | React, Recharts / Chart.js |
+| **Analysis** | Python notebook (sentiment analysis, visualizations) |
+
+---
+
+## ⚠️ Limitations & roadmap
+
+**Current limitations** (we prefer to be transparent):
+- Emotion detection and entity extraction are **rule-based** (weighted dictionaries), not trained classifiers.
+- Retrieval uses **keyword scoring**, not embeddings, so semantic matches without shared words can be missed.
+- The knowledge base is small (130 entities) and user content is simulated.
+- No quantitative evaluation of the NLP components yet.
+
+**Roadmap:**
+- [ ] Replace keyword retrieval with **embeddings and a vector database** (e.g. ChromaDB)
+- [ ] Train and evaluate an **emotion classifier** on a labeled multilingual dataset
+- [ ] Build an **evaluation set** (urgency recall, answer faithfulness to sources)
+- [ ] Extend the corpus and validate answers with medical professionals
+
+---
+
+## 🚀 Getting started
+
+<!-- Adapt these commands to the real repository (file names, scripts, environment variables). -->
 
 ```bash
-Sant--IA/
-├── backend/
-│   ├── data/
-│   │   └── health_dataset.json      # Base de connaissances médicale pour le RAG
-│   ├── src/
-│   │   ├── auth.py                  # Gestion JWT, hachage de mot de passe & dépendances
-│   │   ├── database.py              # Schéma SQLAlchemy (User, Conversation, Message)
-│   │   ├── llm_rag.py               # Pipeline RAG, client Groq et génération de prompts
-│   │   └── nlp_emotion.py           # Analyse d'émotions, NER et détection d'urgences
-│   ├── server.py                    # Point d'entrée FastAPI et ensemble des routes API
-│   ├── migrate_db.py                # Scripts d'initialisation et de migration BDD
-│   ├── seed_demo_data.py            # Données de démonstration pour tests
-│   └── requirements.txt             # Dépendances Python
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── AuthForm.jsx         # Formulaire d'authentification et mode invité
-│   │   │   ├── Chat.jsx             # Fenêtre principale de discussion & avatar adaptatif
-│   │   │   ├── Dashboard.jsx        # Visualisation analytique des émotions (Recharts)
-│   │   │   ├── ProfileModal.jsx     # Fiche médicale et informations personnelles
-│   │   │   └── Sidebar.jsx          # Historique des chats, sélecteur de langue & navigation
-│   │   ├── App.jsx                  # Assemblage des composants et gestion d'état globale
-│   │   └── main.jsx                 # Point de montage React
-│   ├── package.json                 # Dépendances Node & scripts Vite
-│   └── vite.config.js               # Configuration du proxy API Vite
-│
-├── docker-compose.yml               # Déploiement multi-conteneur (FastAPI + MySQL)
-├── Dockerfile                       # Image de production pour le backend
-├── .env.example                     # Modèle des variables d'environnement
-├── .gitignore                       # Exclusion des caches, dépendances et secrets
-└── README.md                        # Documentation du projet
-```
+# 1. Clone the repository
+git clone https://github.com/MolkaJebali/<repo-name>.git
+cd <repo-name>
 
----
-
-## 🛠️ Guide d'Installation & Démarrage
-
-### Prérequis
-- [Python 3.10+](https://www.python.org/)
-- [Node.js 18+](https://nodejs.org/) & `npm`
-- [MySQL 8.0](https://www.mysql.com/) (ou un serveur XAMPP actif) ou [Docker](https://www.docker.com/)
-- Une clé API gratuite [Groq Cloud](https://console.groq.com/)
-
----
-
-### Option 1 : Lancement Manuel (Développement)
-
-#### 1. Configuration des variables d'environnement
-Créez un fichier `.env` dans le dossier `backend/` :
-
-```env
-GROQ_API_KEY=votre_cle_api_groq
-DATABASE_URL=mysql+pymysql://root:@localhost:3306/health_db
-JWT_SECRET=votre_cle_secrete_jwt_personnalisee
-```
-
-> **Note MySQL :** Assurez-vous d'avoir créé la base `health_db` au préalable dans votre gestionnaire MySQL (phpMyAdmin ou CLI) :
-> ```sql
-> CREATE DATABASE health_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-> ```
-
-#### 2. Démarrer le Backend FastAPI
-```bash
-# Se placer dans le dossier backend
+# 2. Backend
 cd backend
-
-# Créer et activer un environnement virtuel
-python -m venv venv
-# Sur Windows :
-.\venv\Scripts\activate
-# Sur Linux/Mac :
-# source venv/bin/activate
-
-# Installer les dépendances
 pip install -r requirements.txt
+cp .env.example .env        # add your Groq API key, MySQL credentials and JWT secret
+python server.py
 
-# Lancer le serveur FastAPI
-uvicorn server:app --reload --host 0.0.0.0 --port 8000
-```
-Le backend est accessible sur : `http://localhost:8000`  
-Documentation interactive Swagger : `http://localhost:8000/docs`
-
-#### 3. Démarrer le Frontend React
-Dans un second terminal :
-```bash
-# Se placer dans le dossier frontend
-cd frontend
-
-# Installer les dépendances
+# 3. Frontend
+cd ../frontend
 npm install
-
-# Démarrer le serveur de développement Vite
 npm run dev
 ```
-L'interface utilisateur est accessible sur : `http://localhost:5173`
+
+> Never commit your `.env` file or API keys.
 
 ---
 
-### Option 2 : Lancement avec Docker Compose
+## 📁 Project structure
 
-Pour un déploiement clé en main orchestré avec MySQL :
-
-```bash
-# À la racine du projet
-docker-compose up --build
+```
+├── backend/
+│   ├── server.py            # API endpoints (chat, document analysis, ...)
+│   └── src/
+│       ├── nlp_emotion.py   # preprocessing, urgency, emotion scoring, entities
+│       ├── llm_rag.py       # retrieval and prompt construction
+│       ├── database.py      # users, conversations, messages (MySQL)
+│       └── auth.py          # JWT authentication
+├── frontend/
+│   └── src/components/
+│       └── Chat.jsx         # chat interface, translations, dashboard
+├── notebooks/               # market and sentiment analysis
+└── assets/                  # images used in this README
 ```
 
 ---
 
-## 🔌 Référence des Endpoints API
+## 🔒 Ethics & privacy
 
-| Méthode | Endpoint | Description | Authentification |
-| :--- | :--- | :--- | :---: |
-| `POST` | `/api/auth/signup` | Inscription d'un nouvel utilisateur avec profil médical | ❌ |
-| `POST` | `/api/auth/login` | Connexion et génération du Bearer Token JWT | ❌ |
-| `GET` | `/api/auth/me` | Récupération du profil de l'utilisateur connecté | 🔒 Requis |
-| `PUT` | `/api/auth/profile` | Mise à jour des informations médicales (groupe, allergies, etc.) | 🔒 Requis |
-| `POST` | `/api/chat` | Envoi d'un message, analyse d'émotion, RAG & réponse vocale | Optionnel |
-| `POST` | `/api/audio` | Transcription vocale (Groq Whisper Large v3) | Optionnel |
-| `POST` | `/api/analyze-document` | Analyse visuelle et explicative d'un rapport ou d'une ordonnance | Optionnel |
-| `GET` | `/api/stats` | Données agrégées des émotions pour le dashboard Recharts | 🔒 Requis |
-| `GET` | `/api/conversations` | Liste des sessions de discussion de l'utilisateur | 🔒 Requis |
-| `POST` | `/api/conversations` | Création d'une nouvelle session de discussion | 🔒 Requis |
-| `DELETE`| `/api/conversations/{id}` | Suppression définitive d'une discussion | 🔒 Requis |
+- **Not medical advice.** The assistant is instructed never to give a definitive diagnosis and to direct users to professionals.
+- **Synthetic data only.** No real patient data is used, in line with GDPR principles.
+- **Traceability.** Every knowledge-base entry keeps its source.
+- **Security.** Health data is tied to authenticated accounts (JWT).
 
 ---
 
-## 🛡️ Confidentialité & Avertissement Médical
+## 👩‍💻 Author
 
-> [!WARNING]
-> **Santé-IA est un outil d'assistance et de sensibilisation technologique.** Il ne remplace en aucun cas l'avis, le diagnostic ou la prescription d'un médecin ou d'un professionnel de santé qualifié. En cas d'urgence médicale vitale, contactez immédiatement le **190** (SAMU) ou rendez-vous au service d'urgences le plus proche.
-
----
-
-## 👩‍💻 Auteur
-
-<div align="center">
-
-**Molka Jebali**  
-
-[![GitHub](https://img.shields.io/badge/GitHub-MolkaJebali-181717?style=flat-square&logo=github)](https://github.com/MolkaJebali)
-
-</div>
-
----
-
-<div align="center">
-  Projet Santé-IA • Développé avec passion pour l'innovation en e-Santé © 2025-2026
-</div>
+**Molka Jebali**: [GitHub](https://github.com/MolkaJebali) · [LinkedIn](https://www.linkedin.com/in/jebali-molka)
