@@ -4,7 +4,7 @@
 
 `NLP` · `RAG` · `LLM (Llama 3.3 70B)` · `Emotion analysis` · `FR / EN / AR (Derja)` · `Voice` · `Vision`
 
-> Master's project (M1 Big Data, UGC & Marketing course, IHEC Carthage, 2025–2026), built by a team of two students.
+> Master's project (M1 Big Data, UGC & Marketing course, IHEC Carthage, 2025–2026),
 > ⚠️ **Educational project, not a medical device.** The assistant never gives a definitive diagnosis.
 
 ---
